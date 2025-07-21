@@ -112,10 +112,11 @@ const ecrFrontend = new Ecr(this, "EcrFrontend", "frontend-userA");
     ```
 
 2. ECR にイメージをプッシュ
-  フロントエンド・バックエンドのコンテナイメージをそれぞれビルドしてプッシュします。  
+    フロントエンド・バックエンドのコンテナイメージをそれぞれビルドしてプッシュします。  
 
-  フロントエンドの手順は以下の通りです。
-  `<フロントECR名>` と `<AWSアカウントID>` は置き換える必要があります。
+    フロントエンドの手順は以下の通りです。    
+    `<フロントECR名>` と `<AWSアカウントID>` は置き換える必要があります。
+
     ```
     cd frontend
     docker build -t <フロントECR名>:latest .
@@ -123,8 +124,10 @@ const ecrFrontend = new Ecr(this, "EcrFrontend", "frontend-userA");
     docker tag <フロントECR名>:latest <AWSアカウントID>.dkr.ecr.ap-northeast-1.amazonaws.com/<フロントECR名>:latest
     docker push <AWSアカウントID>.dkr.ecr.ap-northeast-1.amazonaws.com/<フロントECR名>:latest
     ```
-  バックエンドの手順は以下の通りです。   
-  `<バックECR名>` と `<AWSアカウントID>` は置き換える必要があります。
+
+    バックエンドの手順は以下の通りです。   
+    `<バックECR名>` と `<AWSアカウントID>` は置き換える必要があります。
+
     ```
     cd backend
     docker build -t <バックECR名>:latest .
