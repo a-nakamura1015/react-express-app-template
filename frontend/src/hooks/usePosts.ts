@@ -1,26 +1,33 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { getPosts, addPost } from '../services/api';
+
+type Post = {
+  id: number;
+  userId: number;
+  title: string;
+  content: string;
+};
 
 export const usePosts = () => {
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState<Post[]>([]);
 
   const fetchPosts = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/posts');
-      setPosts(response.data);
+      const data = await getPosts();
+      setPosts(data);
     } catch (error) {
       console.error('Failed to fetch Posts:', error);
     }
   };
 
-  const addPost = async (postData: { userId: number; title: string; content: string }) => {
+  const handleAddPost = async (postData: { userId: number; title: string; content: string }) => {
     if (!postData.userId || !postData.title || !postData.content) {
       console.error('All fields are required.');
       return;
     }
 
     try {
-      await axios.post('http://localhost:5000/api/posts', postData);
+      await addPost(postData);
       // 投稿後に再取得
       await fetchPosts();
     } catch (error) {
@@ -32,5 +39,5 @@ export const usePosts = () => {
     fetchPosts();
   }, []);
 
-  return { posts, addPost };
+  return { posts, addPost: handleAddPost };
 };

@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import userRoutes from './routes/userRoutes';
 import postRoutes from './routes/postRoutes'; 
 import { initDb } from './db/index';
+import { healthCheck } from './controllers/healthController';
 
 dotenv.config({ path: process.env.NODE_ENV === 'test' ? '.env.test' : '.env' });
 
@@ -20,6 +21,9 @@ app.get('/', (_req, res) => {
   res.send('Hello, World!');
 });
 
+// ヘルスチェックエンドポイント
+app.get('/health', healthCheck);
+
 // ルートの設定
 app.use('/api/users', userRoutes);
 app.use('/api/posts', postRoutes);
@@ -30,4 +34,4 @@ const server = app.listen(port, () => {
   initDb();
 });
 
-export { app, server }; 
+export { app, server };
