@@ -16,3 +16,8 @@ export const addPost = async (postData: { userId: number; title: string; content
   const response = await axios.post(`${API_URL}/posts`, postData);
   return response.data;
 };
+
+export const deleteUser = async (id: number) => {
+  const response = await axios.delete(`${API_URL}/users/${id}`);
+  return response.data;
+};

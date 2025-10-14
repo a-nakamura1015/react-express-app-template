@@ -69,7 +69,7 @@ const PostForm: FC<PostFormProps> = ({ users, onPostAdded }) => {
           <button type="submit">Create Post</button>
         </form>
       ) : (
-        <p>Loading users...</p>
+        <p>投稿が存在しません</p>
       )}
     </>
   );

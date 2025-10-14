@@ -1,5 +1,5 @@
 import { db } from '../db';
-import { RowDataPacket } from 'mysql2';
+import { RowDataPacket, OkPacket, PoolConnection } from 'mysql2/promise';
 
 // Postの型定義
 type Post = {
@@ -19,4 +19,10 @@ export const getAllPosts = async (): Promise<Post[]> => {
 export const getPostById = async (id: number): Promise<Post | null> => {
   const [rows] = await db.query<Post[] & RowDataPacket[]>('SELECT * FROM posts WHERE id = ?', [id]);
   return rows.length > 0 ? rows[0] : null;
+};
+
+// ユーザーIDに紐づく投稿を削除する関数
+export const deletePostsByUserId = async (userId: number, connection: PoolConnection): Promise<number> => {
+  const [result] = await connection.query<OkPacket>('DELETE FROM posts WHERE user_id = ?', [userId]);
+  return result.affectedRows;
 };

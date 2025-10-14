@@ -39,5 +39,5 @@ export const usePosts = () => {
     fetchPosts();
   }, []);
 
-  return { posts, addPost: handleAddPost };
+  return { posts, addPost: handleAddPost, fetchPosts };
 };
